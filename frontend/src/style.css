@@ -61,6 +61,7 @@ main {
 
 #board-container {
   flex-shrink: 0;
+  position: relative;
 }
 
 #board {
@@ -79,6 +80,7 @@ main {
   cursor: pointer;
   user-select: none;
   position: relative;
+  transition: background 0.15s;
 }
 
 .square.selected {
@@ -90,28 +92,42 @@ main {
   position: absolute;
   width: 12px;
   height: 12px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.25);
   border-radius: 50%;
+  z-index: 2;
 }
 
 .square.move-dest.capture {
   box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
+.square.move-dest.capture::after { display: none; }
+
 .square.last-move {
   background: #cdd26a !important;
 }
 
-.square.error {
-  background: #f44336 !important;
+.square.shake {
+  animation: shake 0.3s ease-in-out;
 }
 
-.square .piece {
-  line-height: 1;
-  z-index: 1;
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
-/* Default theme: Classic */
+.square.hint-piece {
+  background: #ffd700 !important;
+  box-shadow: inset 0 0 0 3px #b8860b;
+}
+
+.square.hint-dest {
+  background: #90ee90 !important;
+  box-shadow: inset 0 0 0 3px #228b22;
+}
+
+/* Theme: default (Classic) */
 #board[data-theme="classic"] .square.light { background: #f0d9b5; }
 #board[data-theme="classic"] .square.dark { background: #b58863; }
 #board[data-theme="classic"] .piece.white { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
@@ -165,6 +181,7 @@ main {
 #rating {
   color: #888;
   font-size: 0.9rem;
+  margin-bottom: 0.3rem;
 }
 
 #themes {
@@ -182,6 +199,42 @@ main {
   text-transform: capitalize;
 }
 
+#user-stats {
+  background: #16213e;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.stat-label {
+  color: #888;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  color: #eee;
+  font-weight: 600;
+}
+
+.stat-change {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-change.positive { color: #4caf50; }
+.stat-change.negative { color: #f44336; }
+
 #move-history {
   background: #16213e;
   padding: 1rem;
@@ -190,4 +243,75 @@ main {
   font-family: 'Courier New', monospace;
   font-size: 0.9rem;
   line-height: 1.6;
+}
+
+/* Confetti */
+#confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  animation: confetti-fall linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Promotion overlay */
+#promotion-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+}
+
+#promotion-overlay.active {
+  display: flex;
+}
+
+#promotion-choices {
+  background: #16213e;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.promo-btn {
+  font-size: 2.5rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #0f3460;
+  border-radius: 8px;
+  background: #1a1a2e;
+  transition: background 0.15s;
+}
+
+.promo-btn:hover {
+  background: #0f3460;
+}
+
+#skip-btn {
+  display: none;
 }

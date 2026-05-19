@@ -27,11 +27,15 @@
         </select>
         <button id="new-puzzle-btn">New Puzzle</button>
         <button id="hint-btn">Hint</button>
+        <button id="skip-btn">Skip</button>
       </div>
     </header>
     <main>
       <div id="board-container">
         <div id="board" data-theme="classic"></div>
+        <div id="promotion-overlay">
+          <div id="promotion-choices"></div>
+        </div>
       </div>
       <div id="sidebar">
         <div id="puzzle-info">
@@ -39,10 +43,26 @@
           <div id="rating"></div>
           <div id="themes"></div>
         </div>
+        <div id="user-stats">
+          <div class="stat">
+            <span class="stat-label">Rating</span>
+            <span class="stat-value" id="user-rating">Rating: 1200</span>
+            <span class="stat-change" id="rating-change"></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Streak</span>
+            <span class="stat-value" id="user-streak">Streak: 0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Solved</span>
+            <span class="stat-value" id="user-solved">Solved: 0</span>
+          </div>
+        </div>
         <div id="move-history"></div>
       </div>
     </main>
   </div>
+  <div id="confetti-container"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
