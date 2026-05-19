@@ -18,14 +18,20 @@
           <option value="hard">Hard (1800-2200)</option>
           <option value="master">Master (2200+)</option>
         </select>
+        <select id="color-scheme">
+          <option value="classic">Classic</option>
+          <option value="high-contrast">High Contrast</option>
+          <option value="blue">Blue</option>
+          <option value="forest">Forest</option>
+          <option value="midnight">Midnight</option>
+        </select>
         <button id="new-puzzle-btn">New Puzzle</button>
         <button id="hint-btn">Hint</button>
-        <button id="analysis-btn">Analysis</button>
       </div>
     </header>
     <main>
       <div id="board-container">
-        <div id="board"></div>
+        <div id="board" data-theme="classic"></div>
       </div>
       <div id="sidebar">
         <div id="puzzle-info">
@@ -34,10 +40,6 @@
           <div id="themes"></div>
         </div>
         <div id="move-history"></div>
-        <div id="analysis-panel" style="display:none">
-          <h3>Engine Analysis</h3>
-          <div id="engine-output"></div>
-        </div>
       </div>
     </main>
   </div>
